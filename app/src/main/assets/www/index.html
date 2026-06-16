@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#176b87" />
+    <title>清账本</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="本月概览">
+        <div>
+          <p class="eyebrow" id="currentMonth">本月</p>
+          <h1>清账本</h1>
+        </div>
+        <button class="icon-btn" id="resetDemo" type="button" aria-label="恢复示例数据" title="恢复示例数据">
+          <span aria-hidden="true">↻</span>
+        </button>
+      </section>
+
+      <section class="balance-panel" aria-label="余额统计">
+        <p>结余</p>
+        <strong id="netAmount">¥0.00</strong>
+        <div class="summary-grid">
+          <div>
+            <span>收入</span>
+            <b id="incomeAmount">¥0.00</b>
+          </div>
+          <div>
+            <span>支出</span>
+            <b id="expenseAmount">¥0.00</b>
+          </div>
+          <div>
+            <span>预算剩余</span>
+            <b id="budgetLeft">¥0.00</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="budget-panel" aria-label="预算进度">
+        <div class="section-head">
+          <h2>月预算</h2>
+          <label>
+            <span>¥</span>
+            <input id="budgetInput" type="number" min="0" step="100" inputmode="decimal" aria-label="月预算" />
+          </label>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="budgetProgress"></div>
+        </div>
+        <p class="muted" id="budgetHint">已使用 0%</p>
+      </section>
+
+      <section class="entry-panel" aria-label="添加记录">
+        <div class="segmented" role="group" aria-label="记录类型">
+          <button class="active" type="button" data-type="expense">支出</button>
+          <button type="button" data-type="income">收入</button>
+        </div>
+
+        <form id="entryForm" autocomplete="off">
+          <label class="amount-field">
+            <span>金额</span>
+            <input id="amountInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" required />
+          </label>
+
+          <div class="form-row">
+            <label>
+              <span>分类</span>
+              <select id="categoryInput" required></select>
+            </label>
+            <label>
+              <span>日期</span>
+              <input id="dateInput" type="date" required />
+            </label>
+          </div>
+
+          <label>
+            <span>备注</span>
+            <input id="noteInput" type="text" maxlength="24" placeholder="可选" />
+          </label>
+
+          <button class="primary-btn" type="submit">记一笔</button>
+        </form>
+      </section>
+
+      <section class="analysis-panel" aria-label="分类统计">
+        <div class="section-head">
+          <h2>支出分布</h2>
+          <span id="topCategory">暂无</span>
+        </div>
+        <div id="categoryBars" class="category-bars"></div>
+      </section>
+
+      <section class="records-panel" aria-label="账单记录">
+        <div class="section-head">
+          <h2>最近记录</h2>
+          <button class="text-btn" id="clearRecords" type="button">清空</button>
+        </div>
+        <div id="recordsList" class="records-list"></div>
+      </section>
+    </main>
+
+    <template id="recordTemplate">
+      <article class="record-card">
+        <div class="record-icon"></div>
+        <div class="record-main">
+          <h3></h3>
+          <p></p>
+        </div>
+        <div class="record-side">
+          <strong></strong>
+          <button type="button" aria-label="删除记录">×</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
